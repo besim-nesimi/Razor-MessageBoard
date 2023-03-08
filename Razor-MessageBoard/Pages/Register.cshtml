@@ -1,0 +1,20 @@
+﻿@page
+@model Razor_MessageBoard.Pages.RegisterModel
+@{
+}
+
+<div class="text-center">
+	<h3>Fill in your informations!</h3>
+	<br />
+	<form method="post">
+		<input type="text" placeholder="Username" asp-for="@Model.Username" />
+		<input type="password" placeholder="Password" asp-for="@Model.Password" />
+		<input type="password" placeholder="Verify Password" asp-for="@Model.VerifiedPassword" />
+		<br />
+		<div>
+			<span class="text-danger" asp-validation-for="@Model.VerifiedPassword"></span>
+		</div>
+		<br />
+		<input class="btn btn-primary" type="submit" value="Register" />
+	</form>
+</div>

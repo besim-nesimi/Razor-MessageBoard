@@ -5,6 +5,21 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="form-signin w-100 m-auto">
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        <br />
+        <form method="post">
+            <div class="form-floating">
+				<input class="form-control" type="text" placeholder="Username" asp-for="@Model.Username" />
+                <div class="form-floating">
+                 <input class="form-control" type="password" placeholder="Password" asp-for="@Model.Password" />
+                </div>
+				<input class="w-100 btn btn-lg btn-primary" type="submit" value="Sign in"  />
+            </div>
+        </form>
+    </div>
+    <br />
+    <div>
+        <a class="btn btn-primary" type="button" asp-page="/Register">Register</a>
+    </div>
 </div>

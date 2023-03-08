@@ -1,0 +1,15 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity;
+@model Razor_MessageBoard.Pages.Member.MessageBoardModel
+@inject SignInManager<IdentityUser> signInManager
+
+<h1>Welcome @Model.Username</h1>
+
+@if (signInManager.IsSignedIn(User))
+{
+    <em>User is signed in</em>
+}
+
+<form method="post">
+    <button type="submit">Sign Out</button>
+</form>

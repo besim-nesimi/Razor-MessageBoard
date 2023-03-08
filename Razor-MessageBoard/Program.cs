@@ -1,7 +1,40 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Razor_MessageBoard.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+
+var authDbConnectionString = builder.Configuration.GetConnectionString("AuthDbConnection");
+var messagesDbConnectionString = builder.Configuration.GetConnectionString("MessagesDbConnection");
+
+builder.Services.AddDbContext<AuthDbContext>(options => options.UseSqlServer(authDbConnectionString));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(messagesDbConnectionString));
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AuthDbContext>();
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+    });
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Index";
+});
+
+builder.Services.AddRazorPages(options => {
+    options.Conventions.AuthorizeFolder("/Member");
+});
+
 
 var app = builder.Build();
 
@@ -18,6 +51,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
