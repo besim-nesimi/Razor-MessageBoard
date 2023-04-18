@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Razor_MessageBoard.Data;
+using Razor_MessageBoard.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,9 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddRazorPages(options => {
     options.Conventions.AuthorizeFolder("/Member");
 });
+
+builder.Services.AddScoped<MessagesRepo>();
+
 
 
 var app = builder.Build();

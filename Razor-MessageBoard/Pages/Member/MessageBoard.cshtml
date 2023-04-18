@@ -5,11 +5,28 @@
 
 <h1>Welcome @Model.Username</h1>
 
-@if (signInManager.IsSignedIn(User))
-{
-    <em>User is signed in</em>
-}
-
-<form method="post">
-    <button type="submit">Sign Out</button>
-</form>
+<div>
+    @if (signInManager.IsSignedIn(User))
+    {
+        <em>@Model.Username is signed in</em>
+    }
+</div>
+<br />
+<div>
+    <form method="post" asp-page-handler="submit-message">
+        <input type="text" name="Username" value="@Model.Username" hidden />
+        <div>
+            <label for="Message">Message:</label>
+            <input type="text" id="Message" asp-for="@Model.Message" />
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+<br />
+<div>
+    <form method="post" asp-page-handler="sign-out">
+        <button type="submit">Sign Out</button>
+    </form>
+</div>
